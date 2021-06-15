@@ -1,27 +1,12 @@
 $(document).ready(function () {
-    // Init
-    $('.image-section').hide();
-    $('.loader').hide();
     $('#result').hide();
+    $('#btn-predict').hide()
 
-    // Upload Preview
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
-                $('#imagePreview').hide();
-                $('#imagePreview').fadeIn(650);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
     $("#imgUpload").change(function () {
         $('.image-section').show();
         $('#btn-predict').show();
         $('#result').text('');
         $('#result').hide();
-        readURL(this);
     });
 
     // Predict
@@ -32,8 +17,7 @@ $(document).ready(function () {
 
         // Show loading animation
         $(this).hide();
-        $('.loader').show();
-
+        
         // Make prediction by calling api /predict
         $.ajax({
             type: 'POST',
@@ -45,10 +29,9 @@ $(document).ready(function () {
             async: true,
             success: function (data) {
                 // Get and display the result
-                $('.loader').hide();
                 $('#result').fadeIn(600);
                 $('#result').text(' Result:  ' + data);
-                console.log('Success!');
+                console.log('Successful!');
             },
         });
     });
